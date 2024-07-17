@@ -16,13 +16,19 @@ script_path = os.path.realpath(os.path.abspath(os.path.join(os.path.split(
     inspect.getfile(inspect.currentframe()))[0])))
 script_path = script_path.replace("\\", "/")
 
-fn_file_motivation = "M:/Мой диск/Андркомп/my_motiv.txt"
+file_name_motivation = "M:/Мой диск/Андркомп/my_motiv.txt"
 file_name_export = "M:/Мой диск/Андркомп/my_motivation.mp3"
+random_shift = True  # для рандомного помещения верхней части текста вниз, чтобы больше шансов
+# равномерно слушать входящий текст
 infinite_loop = False  # если требуется, то можно в бесконечном цикле каждые 4 часа получать новый мотивирующий файл
 
 while True:
-    with open(fn_file_motivation) as f:  # , encoding='utf-8'
+    with open(file_name_motivation) as f:  # , encoding='utf-8'
         motiv_text = f.read().splitlines()
+
+    if random_shift:
+        random_index = random.randint(0, len(motiv_text) - 1)
+        motiv_text = motiv_text[random_index:] + motiv_text[:random_index]
 
     out_text = ''
     for ii in range(len(motiv_text)):
